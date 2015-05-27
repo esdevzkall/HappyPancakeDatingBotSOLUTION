@@ -19,3 +19,4 @@ c:\users\zkall.netcloud\documents\visual studio 2013\Projects\HappyPancakeDating
 c:\users\zkall.netcloud\documents\visual studio 2013\Projects\HappyPancakeDatingBotSOL\HappyPancakeDatingBot\obj\Release\HappyPancakeDatingBot.csproj.GenerateResource.Cache
 c:\users\zkall.netcloud\documents\visual studio 2013\Projects\HappyPancakeDatingBotSOL\HappyPancakeDatingBot\obj\Release\HappyPancakeDatingBot.exe
 c:\users\zkall.netcloud\documents\visual studio 2013\Projects\HappyPancakeDatingBotSOL\HappyPancakeDatingBot\obj\Release\HappyPancakeDatingBot.pdb
+C:\Users\zkall.NETCLOUD\Documents\Visual Studio 2013\Projects\HappyPancakeDatingBotSOL\HappyPancakeDatingBot\obj\Release\HappyPancakeDatingBot.csprojResolveAssemblyReference.cache

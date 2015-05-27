@@ -15,7 +15,7 @@ namespace HappyPancakeDatingBot
 {
     public partial class Form1 : Form
     {
-      
+        private bool doLoop = false;
         private ChromeDriver driver = new ChromeDriver();
         public Form1()
         {
@@ -23,27 +23,59 @@ namespace HappyPancakeDatingBot
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            if (!doLoop)
             {
-                Login();
-                while (1+1==2)
+                try
                 {
-                    try
-                    {
-                        for (int i = Convert.ToInt32(ageMinTb.Text); i < Convert.ToInt32(ageMaxTb.Text); i++)
-                        {
-                            DoFlirt(i);
-                        }
-                    }
-                    catch (Exception x)
-                    {
-                        MessageBox.Show(x.Message);
-                    }
+                    Login();
+                    button1.Text = "Avsluta flirtandet";
+                    usernameTb.Enabled = false;
+                    passwordTb.Enabled = false;
+                    ageMaxTb.Enabled = false;
+                    ageMinTb.Enabled = false;
+                    lanTb.Enabled = false;
+                    StartLoopingAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
+            else if (doLoop)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Flirt Stoppad");
+                doLoop = false;
+                usernameTb.Enabled = true;
+                passwordTb.Enabled = true;
+                ageMaxTb.Enabled = true;
+                ageMinTb.Enabled = true;
+                lanTb.Enabled = true;
+                button1.Text = "Flirta";
+            }
+        }
+
+        private async Task StartLoopingAsync()
+        {
+            doLoop = true;
+            await Task.Run(() => LoopTask());
+        }
+
+        private async Task LoopTask()
+        {
+            MessageBox.Show("Flirt started");
+            while (doLoop)
+            {
+                try
+                {
+                    for (int i = Convert.ToInt32(ageMinTb.Text); i < Convert.ToInt32(ageMaxTb.Text); i++)
+                    {
+                        DoFlirt(i);
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
             }
         }
 
@@ -160,15 +192,23 @@ namespace HappyPancakeDatingBot
 
         private void Login()
         {
-            driver.Url = "http://happypancake.com/login";
-            Thread.Sleep(1000);
-            var loginfield = driver.FindElementById("ContentPlaceHolderDefault_mainContent_UserName");
-            var passwordfield = driver.FindElementById("ContentPlaceHolderDefault_mainContent_Password");
-            var LoginButton = driver.FindElementById("ContentPlaceHolderDefault_mainContent_lbLogin");
-            loginfield.SendKeys(usernameTb.Text);
-            passwordfield.SendKeys(passwordTb.Text);
-            LoginButton.Click();
-            Thread.Sleep(1000);
+            try
+            {
+                driver.Url = "http://happypancake.com/login";
+                Thread.Sleep(1000);
+                var loginfield = driver.FindElementById("ContentPlaceHolderDefault_mainContent_UserName");
+                var passwordfield = driver.FindElementById("ContentPlaceHolderDefault_mainContent_Password");
+                var LoginButton = driver.FindElementById("ContentPlaceHolderDefault_mainContent_lbLogin");
+                loginfield.SendKeys(usernameTb.Text);
+                passwordfield.SendKeys(passwordTb.Text);
+                LoginButton.Click();
+                Thread.Sleep(1000);
+            }
+            catch (Exception)
+            {
+                
+            }
+         
         }
 
        
